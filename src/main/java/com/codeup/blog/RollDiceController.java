@@ -7,14 +7,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class RollDiceController {
-    int randomNum;
     @GetMapping("/roll-dice")
     public String rollDice(){
-        this.randomNum = (int) Math.floor(Math.random() * 6) + 1;
         return "roll-dice";
     }
     @GetMapping("/roll-dice/{n}")
     public String Guess(@PathVariable int n, Model model){
+        int randomNum = (int) Math.floor(Math.random() * 6) + 1;
         model.addAttribute("n",n);
         model.addAttribute("randomNum",randomNum);
         return "roll-diceGuess";

@@ -12,18 +12,19 @@ import java.util.List;
 
 @Controller
 public class PostController {
+    private final PostService postService;
+    public PostController(PostService postService){
+        this.postService = postService;
+    }
+
     @GetMapping("/posts")
     public String posts(Model model){
-        List<Post> posts = new ArrayList<>();
-        posts.add(new Post("First Post","This is my first post"));
-        posts.add(new Post("Second Post","This is my second post"));
-        model.addAttribute("posts",posts);
+        model.addAttribute("posts",postService.findAll());
         return "posts/index";
     }
     @GetMapping("/posts/{id}")
-    public String individualPost(@PathVariable int id, Model model){
-        Post post = new Post("Individual Post","this is an individual post");
-        model.addAttribute("Post",post);
+    public String individualPost(@PathVariable String id, Model model){
+        model.addAttribute("Post",postService.findOne(Integer.parseInt(id)));
         return "posts/show";
     }
     @GetMapping("/posts/create")
