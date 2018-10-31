@@ -43,4 +43,10 @@ public class PostController {
         postService.edit(post);
         return "redirect:/posts";
     }
+    @PostMapping("/posts/{id}/delete")
+    public String deletePost(@ModelAttribute Post post){
+        postService.delete(post);
+        return "redirect:/posts";
+
+    }
 }
