@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials :: head('Edit a post')">
+
+</head>
+<body>
+<nav th:replace="partials :: navbar"/>
+<form th:object="${post}" th:action="@{'/posts/' + ${post.id} + '/edit'}" th:method="post">
+    Title:
+    <input th:field="*{title}" th:value="${post.title}"/>
+    <br/>
+    Body:
+    <input th:field="*{body}" th:value="${post.body}"/>
+    <br/>
+    <input type="submit"/>
+</form>
+</body>
+</html>

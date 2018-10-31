@@ -1,11 +1,10 @@
 package com.codeup.blog.controllers;
 
+import com.codeup.blog.Post;
+import com.codeup.blog.services.PostService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class PostController {
@@ -25,13 +24,23 @@ public class PostController {
         return "posts/show";
     }
     @GetMapping("/posts/create")
-    @ResponseBody
-    public String createPostIndex(){
-        return "Create a post here!";
+    public String createPostIndex(Model model){
+        model.addAttribute("post",new Post());
+        return "posts/create";
     }
     @PostMapping("/posts/create")
-    @ResponseBody
-    public String createPost(){
-        return "Post created!";
+    public String createPost(@ModelAttribute Post post){
+        postService.save(post);
+        return "redirect:/posts";
+    }
+    @GetMapping("/posts/{id}/edit")
+    public String editPost(@PathVariable String id, Model model){
+        model.addAttribute("post",postService.findOne(Integer.parseInt(id)));
+        return "posts/edit";
+    }
+    @PostMapping("/posts/{id}/edit")
+    public String submitEdit(@PathVariable String id, Model model){
+        model.addAttribute("post",postService.findOne(Integer.parseInt(id)));
+        return "redirect:/posts";
     }
 }

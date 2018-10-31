@@ -4,7 +4,10 @@
 
 </head>
 <body>
-<nav th:replace="partials :: navbar"></nav>
+<nav>
+<th:block th:include="partials :: navbar"></th:block>
+    <a th:href="@{'/posts/' + ${Post.id} + '/edit'}">Edit</a>
+</nav>
 <h1 th:text="${Post.title}"></h1>
 <p th:text="${Post.body}"></p>
 <footer th:replace="partials :: footer"></footer>
