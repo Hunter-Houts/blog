@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="head">
+<head th:fragment="head(title)">
     <meta charset="UTF-8"/>
+    <title th:text="${title}">title</title>
 </head>
 <body>
     <nav style="margin:0; padding:0; list-style-type:none;" th:fragment="navbar">
