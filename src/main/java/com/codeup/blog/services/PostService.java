@@ -28,7 +28,10 @@ public class PostService {
     public Post findOne(long id) {
         return posts.get((int)id - 1);
     }
-
+    public Post edit(Post post){
+        posts.set((int) post.getId() -1,post);
+        return post;
+    }
     private void createPosts() {
         save(new Post(1,"first post","This is my first post"));
         save(new Post(2,"Second Post","Second Post for blog"));

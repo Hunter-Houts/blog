@@ -39,8 +39,8 @@ public class PostController {
         return "posts/edit";
     }
     @PostMapping("/posts/{id}/edit")
-    public String submitEdit(@PathVariable String id, Model model){
-        model.addAttribute("post",postService.findOne(Integer.parseInt(id)));
+    public String submitEdit(@ModelAttribute Post post){
+        postService.edit(post);
         return "redirect:/posts";
     }
 }
