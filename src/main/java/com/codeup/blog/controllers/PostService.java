@@ -1,5 +1,6 @@
-package com.codeup.blog;
+package com.codeup.blog.controllers;
 
+import com.codeup.blog.Post;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
