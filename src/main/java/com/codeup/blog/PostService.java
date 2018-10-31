@@ -11,7 +11,7 @@ public class PostService {
 
     public PostService() {
         this.posts = new ArrayList<>();
-        createAds();
+        createPosts();
     }
 
     public List<Post> findAll() {
@@ -28,7 +28,7 @@ public class PostService {
         return posts.get((int)id - 1);
     }
 
-    private void createAds() {
+    private void createPosts() {
         save(new Post(1,"first post","This is my first post"));
         save(new Post(2,"Second Post","Second Post for blog"));
         save(new Post(3,"Test Post","Please Ignore"));
