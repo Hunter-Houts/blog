@@ -1,14 +1,21 @@
 package com.codeup.blog.controllers;
 
-import com.codeup.blog.Post;
+import com.codeup.blog.models.Post;
 import com.codeup.blog.services.PostService;
+import com.codeup.blog.services.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class PostController {
     private final PostService postService;
+    @Autowired
+    private UserRepository userDao;
     public PostController(PostService postService){
         this.postService = postService;
     }
@@ -30,6 +37,7 @@ public class PostController {
     }
     @PostMapping("/posts/create")
     public String createPost(@ModelAttribute Post post){
+        post.setUser(userDao.findOne(1L));
         postService.save(post);
         return "redirect:/posts";
     }

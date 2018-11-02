@@ -10,6 +10,8 @@
 </nav>
 <h1 th:text="${Post.title}"></h1>
 <p th:text="${Post.body}"></p>
+<br/>
+<p th:text="'Posted By: ' + ${Post.user.email}"></p>
 
 
 <footer th:replace="partials :: footer"></footer>
