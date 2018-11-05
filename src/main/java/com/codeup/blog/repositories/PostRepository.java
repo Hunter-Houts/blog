@@ -1,4 +1,4 @@
-package com.codeup.blog.services;
+package com.codeup.blog.repositories;
 
 import com.codeup.blog.models.Post;
 import org.springframework.stereotype.Repository;

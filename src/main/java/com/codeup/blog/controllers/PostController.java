@@ -1,9 +1,11 @@
 package com.codeup.blog.controllers;
 
 import com.codeup.blog.models.Post;
+import com.codeup.blog.models.User;
+import com.codeup.blog.repositories.UserRepository;
 import com.codeup.blog.services.PostService;
-import com.codeup.blog.services.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,19 +39,30 @@ public class PostController {
     }
     @PostMapping("/posts/create")
     public String createPost(@ModelAttribute Post post){
-        post.setUser(userDao.findOne(1L));
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        post.setUser(userDao.findOne(loggedInUser.getId()));
         postService.save(post);
         return "redirect:/posts";
     }
     @GetMapping("/posts/{id}/edit")
-    public String editPost(@PathVariable String id, Model model){
-        model.addAttribute("post",postService.findOne(Integer.parseInt(id)));
-        return "posts/edit";
+    public String editPost(@PathVariable long id, Model model){ ;
+        if(postService.findOne(id) != null) {
+            model.addAttribute("post", postService.findOne(id));
+            return "posts/edit";
+        } else {
+            return "redirect:/";
+        }
     }
     @PostMapping("/posts/{id}/edit")
-    public String submitEdit(@ModelAttribute Post post){
-        postService.edit(post);
-        return "redirect:/posts";
+    public String submitEdit(@ModelAttribute Post post, @PathVariable long id) {
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (postService.findOne(id).getUser().getId() == loggedInUser.getId()) {
+            post.setUser(userDao.findByUsername(loggedInUser.getUsername()));
+            postService.edit(post);
+            return "redirect:/posts";
+        } else {
+            return "redirect:/";
+        }
     }
     @PostMapping("/posts/{id}/delete")
     public String deletePost(@ModelAttribute Post post){
