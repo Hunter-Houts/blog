@@ -6,12 +6,11 @@
 <body>
 <nav th:replace="partials :: navbar"/>
 <form th:object="${post}" th:action="@{'/posts/' + ${post.id} + '/edit'}" th:method="post">
-    Title:
-    <input th:field="*{title}" />
+    <label for="title">Title:</label>
+    <input id="title" th:field="*{title}"/>
     <br/>
-    Body:
-    <input th:field="*{body}" />
-    <br/>
+    <label for="body">Body:</label>
+    <textarea rows="8" cols="100" id="body" th:field="*{body}"/>
     <input type="submit"/><br/><br/><input type="submit" value="Delete"  th:formaction="@{'/posts/' + ${post.id} + '/delete'}" th:formmethod="post"/>
 </form>
 </body>
