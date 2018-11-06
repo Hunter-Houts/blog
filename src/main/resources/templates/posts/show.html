@@ -1,17 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head th:replace="partials :: head('Single Post')">
 
 </head>
 <body>
-<nav>
-<th:block th:include="partials :: navbar"></th:block>
-    <a th:href="@{'/posts/' + ${Post.id} + '/edit'}">Edit</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin:0; padding:0; list-style-type:none;">
+    <th:block th:include="partials :: navbar"></th:block>
+    <a class="nav-item nav-link" sec:authorize="isAuthenticated()" th:href="@{'/posts/' + ${Post.id} + '/edit'}">Edit</a>
 </nav>
-<h1 th:text="${Post.title}"></h1>
-<p th:text="${Post.body}"></p>
-<br/>
-<p th:text="'Posted By: ' + ${Post.user.email}"></p>
+<div class="card">
+    <div class="card-header">
+        <span th:text="'Posted By: ' + ${Post.user.username}"></span>
+    </div>
+    <div class="card-body">
+        <h1 class="card-title" th:text="${Post.title}"></h1>
+        <p class="card-text" th:text="${Post.body}"></p>
+    </div>
+</div>
 
 
 <footer th:replace="partials :: footer"></footer>
