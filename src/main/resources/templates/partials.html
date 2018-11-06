@@ -11,7 +11,7 @@
         <a class="nav-item nav-link active" href="/">Home</a>
         <a class="nav-item nav-link" href="/roll-dice">Roll-Dice Game</a>
         <a class="nav-item nav-link" href="/posts">Posts</a>
-        <a class="nav-item nav-link" sec:authorize="!isAuthenticated()" href="/posts/create">Create a post</a>
+        <a class="nav-item nav-link" sec:authorize="isAuthenticated()" href="/posts/create">Create a post</a>
         <form class="form-inline" sec:authorize="isAuthenticated()"  th:action="@{/logout}" th:method="post">
             <button class="btn my-2 my-sm-0 nav-item btn-dark" style="margin-top: 8px; color: #007bff;">Logout</button>
         </form>
